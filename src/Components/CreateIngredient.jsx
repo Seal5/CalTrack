@@ -1,6 +1,7 @@
 import AddIcon from "@mui/icons-material/Add";
 import React, { useState } from "react";
 
+// creating ingredient 
 function CreateIngredient(props) {
   const [ingredient, setIngredient] = useState({
     title: "",
@@ -9,6 +10,7 @@ function CreateIngredient(props) {
     weightG: "",
   });
 
+// using useState to render each change
   function handleChange(event) {
     const { name, value } = event.target;
     setIngredient((prev) => {
@@ -19,7 +21,8 @@ function CreateIngredient(props) {
     });
   }
 
-  function addIngre(event) {
+// passing ingredient to App
+  function sendIngredient(event) {
     props.onAdd(ingredient);
     setIngredient({
       title: "",
@@ -30,6 +33,7 @@ function CreateIngredient(props) {
     event.preventDefault();
   }
 
+// Returning the ingredient list in an appropriate positio according to dish entree name 
   return (
     <div>
       <form>
@@ -58,7 +62,7 @@ function CreateIngredient(props) {
           value={ingredient.weightG}
         />
 
-        <button onClick={addIngre}>
+        <button onClick={sendIngredient}>
           <AddIcon />
         </button>
       </form>

@@ -5,6 +5,7 @@ function Ingredient(props) {
   function deleteIngredient() {
     props.onDelete(props.id);
   }
+  
   return (
     <div className="ingredient">
       <h1>{props.title}</h1>
