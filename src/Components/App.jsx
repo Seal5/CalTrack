@@ -1,20 +1,24 @@
 import React, { useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
-import Note from "./Meal";
-import CreateArea from "./CreateMeal";
+import Ingredient from "./Ingredient";
+import CreateIngredient from "./CreateIngredient";
 
 function App() {
+  const [ingredient, setIngredient] = useState([]);
   const [meal, setMeal] = useState([]);
 
-  function addNote(newNote) {
-    setNote((prevNotes) => {
-      return [...prevNotes, newNote];
+  function addIngredient(newIngredient) {
+    setIngredient((prevIngredients) => {
+      return [...prevIngredients, newIngredient];
     });
+    setMeal((prevMeal) => {
+      return[...prevMeal, newMeal];
+    })
   }
-  function deleteNote(id) {
-    setNote((prevNotes) => {
-      return prevNotes.filter((noteItem, index) => {
+  function deleteIngredient(id) {
+    setIngredient((prevIngredients) => {
+      return prevIngredients.filter((ingredient, index) => {
         return index !== id;
       });
     });
@@ -23,15 +27,17 @@ function App() {
   return (
     <div>
       <Header />
-      <CreateArea onAdd={addNote} />
-      {note.map((noteItem, index) => {
+      <CreateIngredient onAdd={addIngredient} />
+      {ingredient.map((ingredient, index) => {
         return (
-          <Note
+          <Ingredient
             key={index}
             id={index}
-            title={noteItem.title}
-            content={noteItem.content}
-            onDelete={deleteNote}
+            title={ingredient.title}
+            ingredienttitle ={ingredient.ingredientTitle}
+            weightG={ingredient.weightG}
+            caloriePG={ingredient.caloriePG}
+            onDelete={deleteIngredient}
           />
         );
       })}

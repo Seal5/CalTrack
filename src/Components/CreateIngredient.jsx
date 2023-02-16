@@ -1,16 +1,12 @@
 import AddIcon from "@mui/icons-material/Add";
 import React, { useState } from "react";
 
-function CreateMeal(props) {
+function CreateIngredient(props) {
   const [ingredient, setIngredient] = useState({
     title: "",
+    ingreTitle: "",
     caloriePG: "",
     weightG: "",
-  });
-
-  function addIngredient(newIngredient) {
-  setIngredient((prevNotes) => {
-    return [...prevNotes, newNote];
   });
 
   function handleChange(event) {
@@ -23,40 +19,46 @@ function CreateMeal(props) {
     });
   }
 
-  function handleClick(event) {
-    props.onAdd(note);
-    setNote({
+  function addIngre(event) {
+    props.onAdd(ingredient);
+    setIngredient({
       title: "",
-      content: "",
+      ingreTitle: "",
+      caloriePG: "",
+      weightG: "",
     });
     event.preventDefault();
   }
-  const [title , setTitle] = useState(false)
-  function onAddNote() {
-    setTitle(true);
-  }
+
   return (
     <div>
       <form>
         <input
-          placeholder="Ingredient name..."
+          placeholder="Dish name..."
           name="title"
           onChange={handleChange}
           value={ingredient.title}
-        /> 
+        />
+        <input
+          placeholder="Ingredient name..."
+          name="ingreTitle"
+          onChange={handleChange}
+          value={ingredient.ingreTitle}
+        />
         <input
           placeholder="Calorie per gram..."
           name="caloriePG"
           onChange={handleChange}
           value={ingredient.caloriePG}
-        /> 
+        />
         <input
-          placeholder="Weigh in grams..."
+          placeholder="Weight in grams..."
           name="weightG"
           onChange={handleChange}
           value={ingredient.weightG}
-        /> 
-        <button onClick={addIngredient}>
+        />
+
+        <button onClick={addIngre}>
           <AddIcon />
         </button>
       </form>
@@ -64,4 +66,4 @@ function CreateMeal(props) {
   );
 }
 
-export default CreateMeal;
+export default CreateIngredient;
