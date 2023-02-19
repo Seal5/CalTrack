@@ -1,0 +1,141 @@
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+#root {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Header styles */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f1f1f1;
+  width: 100%;
+  padding: 10px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 36px;
+}
+
+/* Footer styles */
+footer {
+  text-align: center;
+  background-color: #f1f1f1;
+  width: 100%;
+  padding: 10px;
+}
+
+/* CreateIngredient styles */
+form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+form input,
+form button {
+  margin: 5px;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+}
+
+form input[type="number"] {
+  width: 100px;
+}
+
+form input[type="text"],
+form input[type="number"] {
+  flex: 1;
+}
+
+form input[type="text"]::placeholder,
+form input[type="number"]::placeholder {
+  color: #bbb;
+}
+
+form button {
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form button:hover {
+  background-color: #2d8638;
+}
+
+/* Ingredient styles */
+table {
+  margin: 20px 0;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background-color: #f1f1f1;
+}
+
+td {
+  position: relative;
+}
+
+.ingredient-delete {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.ingredient-delete:hover {
+  background-color: #d32f2f;
+}
+
+/* Calculated styles */
+.calculated {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.calculated p {
+  margin: 0 20px;
+  font-size: 24px;
+}

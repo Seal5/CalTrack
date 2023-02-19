@@ -1,99 +1,116 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import Ingredient from "./Ingredient";
+import Calculated from "./Calculated";
 import CreateIngredient from "./CreateIngredient";
 
 function App() {
   // set up states for ingredient and meal
-  const [ingredient, setIngredient] = useState([{
-      title: "",
-      ingreTitle: "",
-      caloriePG: "",
-      weightG: ""
-    }]);
-  const [meal, setMeal] = useState(
-    [[{
-      title: "",
-      ingreTitle: "",
-      caloriePG: "",
-      weightG: ""
-    }]]
-  );
+  const [meal, setMeal] = useState([]);
+  const [calculatedValues, setCalculatedValues] = useState([]);
 
-  // creating meal array with ingredients for each dish using objects
-  function mealList() {
-    setMeal((prevMeal) => {
-      for (let i = 0; i < ingredient.length; i++) {
-        for (let j = 0; j < meal.length; j++) {
-          if (meal[i][0].title === ingredient[j].title) {
-            return{
-              prevMeal[i][j].title : ingredient[j].title,
-              prevMeal[i][j].ingreTitle : ingredient[j].ingreTitle,
-              prevMeal[i][j].caloriePG : ingredient[j].caloriePG,
-              prevMeal[i][j].weightG : ingredient[j].weightG}
-            }
-          }
-        }
-    }})
+
+function addIngredient(newIngredient) {
+  // Check if the ingredient already exists in the meal
+  for (let i = 0; i < meal.length; i++) {
+    if (meal[i][0].title === newIngredient.title) {
+      const newMeal = [...meal]; 
+      newMeal[i] = [...newMeal[i], newIngredient];
+      setMeal(newMeal);
+      return; 
+    }
   }
 
-    // function sendMeal(meal){
-    //   props.onNew(meal);
-    // }
+  // Ingredient doesn't exist, so add it to a new dish
+  const newMeal = [...meal]; 
+  newMeal.push([newIngredient]); 
+  setMeal(newMeal); 
+}
 
-    // adding ingredient and adding meal if new one is added
-    function addIngredient(newIngredient) {
-      setIngredient((prevIngredients) => {
-        return [...prevIngredients, newIngredient];
-      });
-      const checkNew = newIngredient.title;
-      setMeal((prevMeal) => {
-        let count = 0;
-        for (let i = 0; i < prevMeal.length; i += 1) {
-          if (prevMeal[i] !== checkNew) {
-            count = count + 1;
-          }
-        }
-        if (count === prevMeal.length) {
-          return [...prevMeal, checkNew];
-        } else {
-          return [...prevMeal];
-        }
-      });
+// 
+useEffect(() => {
+  const intervalId = setInterval(() => {
+    setCalcValue();
+  }, 1000);
+    return () => clearInterval(intervalId);
+  }, [meal]);
+
+function setCalcValue() {
+  const arrC = [];
+  for (let i = 0; i < meal.length; i++) {
+    let tCalorie = 0;
+    for (let j = 0; j < meal[i].length; j++) {
+      tCalorie += meal[i][j].weightG/ meal[i][j].caloriePG;
     }
-
-    // deleting ingredient off
-    function deleteIngredient(id) {
-      setIngredient((prevIngredients) => {
-        return prevIngredients.filter((ingredient, index) => {
-          return index !== id;
-        });
-      });
-    }
-
-    // extracting the entire webpage
-    return (
-      <div>
-        <Header />
-        <CreateIngredient onAdd={addIngredient} />
-        {ingredient.map((ingredient, index) => {
-          return (
-            <Ingredient
-              key={index}
-              id={index}
-              title={ingredient.title}
-              ingredienttitle={ingredient.ingredientTitle}
-              weightG={ingredient.weightG}
-              caloriePG={ingredient.caloriePG}
-              onDelete={deleteIngredient}
-            />
-          );
-        })}
-        <Footer />
-      </div>
-    );
+    arrC.push(tCalorie);
   }
+  setCalculatedValues([arrC]);
+}
+
+// deleting ingredient off
+// function deleteIngredient(id) {
+//   setMeal((prevIngredients) => {
+//     return prevIngredients.filter((ingredient, index) => {
+//       return index !== id;
+//     });
+//   });
+// }
+
+// extracting the entire webpage
+return (
+  <div>
+    <Header />
+    <Calculated 
+    meal = {meal}
+    calcValue = {calculatedValues}
+    />
+    <CreateIngredient onAdd={addIngredient} />
+    <table>
+      <tbody>
+        {meal.map((row, rowIndex) => (
+          <tr key={rowIndex}>
+            {row.map((value, colIndex) => (
+              <td key={colIndex}>
+                <Ingredient
+                  key={colIndex}
+                  id={colIndex}
+                  title={value.title}
+                  ingreTitle={value.ingreTitle}
+                  weightG={value.weightG}
+                  caloriePG={value.caloriePG}
+                  // onDelete={deleteIngredient}
+                />
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    <Footer />
+  </div>
+);
+
+}
+      // <div>
+      //   <Header />
+      //   <CreateIngredient onAdd={addIngredient} />
+      //   {meal.map((dish, index) => (
+      //     <div key={index}>
+      //       <h2>{dish[0].title}</h2>
+      //       {dish.slice(1).map((ingredient, index) => (
+      //         <Ingredient
+      //           key={index}
+      //           title={ingredient.title}
+      //           ingreTitle={ingredient.ingreTitle}
+      //           caloriePG={ingredient.caloriePG}
+      //           weightG={ingredient.weightG}
+      //         />
+      //       ))}
+      //     </div>
+      //   ))}
+      //   <Footer />
+      // </div>;
 
 
 export default App;

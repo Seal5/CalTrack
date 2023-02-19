@@ -25,7 +25,6 @@ function CreateIngredient(props) {
   function sendIngredient(event) {
     props.onAdd(ingredient);
     setIngredient({
-      title: "",
       ingreTitle: "",
       caloriePG: "",
       weightG: "",
@@ -50,12 +49,14 @@ function CreateIngredient(props) {
           value={ingredient.ingreTitle}
         />
         <input
+          type="number"
           placeholder="Calorie per gram..."
           name="caloriePG"
           onChange={handleChange}
           value={ingredient.caloriePG}
         />
         <input
+          type="number"
           placeholder="Weight in grams..."
           name="weightG"
           onChange={handleChange}
