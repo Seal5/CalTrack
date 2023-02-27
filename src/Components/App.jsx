@@ -7,8 +7,9 @@ import CreateIngredient from "./CreateIngredient";
 
 function App() {
   // set up states for ingredient and meal
+  const [output, setOutput] = useState([]);
   const [meal, setMeal] = useState([]);
-  const [calculatedValues, setCalculatedValues] = useState([]);
+  const [calculatedValues, setCalculatedValues] = useState();
 
 
 function addIngredient(newIngredient) {
@@ -26,13 +27,14 @@ function addIngredient(newIngredient) {
   const newMeal = [...meal]; 
   newMeal.push([newIngredient]); 
   setMeal(newMeal); 
+  setCalcValue();
 }
 
 // 
 useEffect(() => {
   const intervalId = setInterval(() => {
     setCalcValue();
-  }, 1000);
+  }, 1);
     return () => clearInterval(intervalId);
   }, [meal]);
 
@@ -41,11 +43,34 @@ function setCalcValue() {
   for (let i = 0; i < meal.length; i++) {
     let tCalorie = 0;
     for (let j = 0; j < meal[i].length; j++) {
-      tCalorie += meal[i][j].weightG/ meal[i][j].caloriePG;
+      tCalorie += meal[i][j].weightG / meal[i][j].caloriePG;
     }
     arrC.push(tCalorie);
   }
-  setCalculatedValues([arrC]);
+  setCalculatedValues(arrC);
+  setCalcOutput(arrC);
+}
+
+  for (let i = 0; i < meal.length; i++) {
+    let tCalorie = 0;
+    for (let j = 0; j < meal[i].length; j++) {
+      tCalorie += meal[i][j].weightG / meal[i][j].caloriePG;
+    }
+    arrC.push(tCalorie);
+  }
+  setCalculatedValues(arrC);
+  setCalcOutput(arrC);
+}
+
+
+function setCalcOutput(arrC){
+  let mealItems = [];
+  let single = "";
+    for(let i = 0; i < meal.length; i++){
+        single = meal[i][0].title + " has " + arrC[i] + " calories";
+        mealItems.push(single);
+    }
+    setOutput(mealItems);
 }
 
 // deleting ingredient off
@@ -61,10 +86,10 @@ function setCalcValue() {
 return (
   <div>
     <Header />
-    <Calculated 
-    meal = {meal}
-    calcValue = {calculatedValues}
-    />
+    {output.map((value, index) => (
+      <p key={index}>{value}</p>
+    ))}
+    {}
     <CreateIngredient onAdd={addIngredient} />
     <table>
       <tbody>
