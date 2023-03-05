@@ -50,17 +50,20 @@ function setCalcValue() {
   setCalculatedValues(arrC);
   setCalcOutput(arrC);
 }
+// function setCalcValue() {
+//   const arrC = [];
+//   for (let i = 0; i < meal.length; i++) {
+//     let tCalorie = 0;
+//     for (let j = 0; j < meal[i].length; j++) {
+//       tCalorie += meal[i][j].weightG / meal[i][j].caloriePG;
+//     }
+//     arrC.push(tCalorie);
+//   }
+//   setCalculatedValues(arrC);
+//   setCalcOutput(arrC);
+// }
 
-  for (let i = 0; i < meal.length; i++) {
-    let tCalorie = 0;
-    for (let j = 0; j < meal[i].length; j++) {
-      tCalorie += meal[i][j].weightG / meal[i][j].caloriePG;
-    }
-    arrC.push(tCalorie);
-  }
-  setCalculatedValues(arrC);
-  setCalcOutput(arrC);
-}
+
 
 
 function setCalcOutput(arrC){
