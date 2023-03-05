@@ -2,32 +2,28 @@ import React, { useState, useEffect} from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import Ingredient from "./Ingredient";
-import Calculated from "./Calculated";
 import CreateIngredient from "./CreateIngredient";
 
 function App() {
   // set up states for ingredient and meal
   const [output, setOutput] = useState([]);
   const [meal, setMeal] = useState([]);
-  const [calculatedValues, setCalculatedValues] = useState();
-
 
 function addIngredient(newIngredient) {
   // Check if the ingredient already exists in the meal
   for (let i = 0; i < meal.length; i++) {
     if (meal[i][0].title === newIngredient.title) {
-      const newMeal = [...meal]; 
+      const newMeal = [...meal];
       newMeal[i] = [...newMeal[i], newIngredient];
       setMeal(newMeal);
-      return; 
+      return;
     }
   }
 
   // Ingredient doesn't exist, so add it to a new dish
-  const newMeal = [...meal]; 
-  newMeal.push([newIngredient]); 
-  setMeal(newMeal); 
-  setCalcValue();
+  const newMeal = [...meal];
+  newMeal.push([newIngredient]);
+  setMeal(newMeal);
 }
 
 // 
@@ -39,51 +35,32 @@ useEffect(() => {
   }, [meal]);
 
 function setCalcValue() {
-  const arrC = [];
+  var arrC = [];
+  var single = [];
+  var mealItems = [];
   for (let i = 0; i < meal.length; i++) {
     let tCalorie = 0;
     for (let j = 0; j < meal[i].length; j++) {
-      tCalorie += meal[i][j].weightG / meal[i][j].caloriePG;
+      tCalorie += meal[i][j].weightG * meal[i][j].caloriePG;
     }
-    arrC.push(tCalorie);
+    arrC = [...arrC , tCalorie];
   }
-  setCalculatedValues(arrC);
-  setCalcOutput(arrC);
+  for (let i = 0; i < meal.length; i++) {
+    single = meal[i][0].title + " has " + arrC[i] + " calories";
+    mealItems.push(single);
+  }
+  setOutput(mealItems);
 }
-// function setCalcValue() {
-//   const arrC = [];
-//   for (let i = 0; i < meal.length; i++) {
-//     let tCalorie = 0;
-//     for (let j = 0; j < meal[i].length; j++) {
-//       tCalorie += meal[i][j].weightG / meal[i][j].caloriePG;
-//     }
-//     arrC.push(tCalorie);
-//   }
-//   setCalculatedValues(arrC);
-//   setCalcOutput(arrC);
-// }
 
-
-
-
-function setCalcOutput(arrC){
-  let mealItems = [];
-  let single = "";
-    for(let i = 0; i < meal.length; i++){
-        single = meal[i][0].title + " has " + arrC[i] + " calories";
-        mealItems.push(single);
-    }
-    setOutput(mealItems);
-}
 
 // deleting ingredient off
-// function deleteIngredient(id) {
-//   setMeal((prevIngredients) => {
-//     return prevIngredients.filter((ingredient, index) => {
-//       return index !== id;
-//     });
-//   });
-// }
+function deleteIngredient(id) {
+  setMeal((prevIngredients) => {
+    return prevIngredients.filter((ingredient, index) => {
+      return index !== id;
+    });
+  });
+}
 
 // extracting the entire webpage
 return (

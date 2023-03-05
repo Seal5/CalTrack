@@ -25,6 +25,7 @@ function CreateIngredient(props) {
   function sendIngredient(event) {
     props.onAdd(ingredient);
     setIngredient({
+      title: ingredient.title,
       ingreTitle: "",
       caloriePG: "",
       weightG: "",
