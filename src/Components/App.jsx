@@ -3,6 +3,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Ingredient from "./Ingredient";
 import CreateIngredient from "./CreateIngredient";
+import CreateMeal from "./CreateMeal";
 import NeededCalorie from "./NeededCalorie";
 
 function App() {
@@ -10,13 +11,45 @@ function App() {
   const [output, setOutput] = useState([]);
   const [total, setTotal] = useState(2250);
   const [meal, setMeal] = useState([]);
-  var totalC = 0;
 
-function handleAddIngredient(newIngredient) {
-  addIngredient(newIngredient);
+useEffect(() => {
   setCalcValue();
+}, [meal]);
+
+useEffect(() => {
+  remainingCal(total);
+}, [meal]);
+
+function handleAddIngredient(newIngredient, newMeal) {
+  if(newIngredient !== null){
+    addIngredient(newIngredient);
+  }
+  else if(newMeal !== null){
+    addMeal(newMeal);
+  }
+  setCalcValue(newMeal);
+  remainingCal(total);
 }
 
+function setCalcValue() {
+  var totalC = 0;
+  var arrC = [];
+  var single = [];
+  var mealItems = [];
+  for (let i = 0; i < meal.length; i++) {
+    let tCalorie = 0;
+    for (let j = 0; j < meal[i].length; j++) {
+      tCalorie += meal[i][j].weightG * meal[i][j].caloriePG;
+    }
+    arrC = [...arrC, tCalorie];
+  }
+  for (let i = 0; i < meal.length; i++) {
+    single = meal[i][0].title + " has " + arrC[i] + " calories";
+    mealItems.push(single);
+    totalC = totalC + arrC[i];
+  }
+  setOutput(mealItems);
+}
 
 function addIngredient(newIngredient) {
   // Check if the ingredient already exists in the meal
@@ -28,10 +61,25 @@ function addIngredient(newIngredient) {
       return;
     }
   }
-
   // Ingredient doesn't exist, so add it to a new dish
   const newMeal = [...meal];
   newMeal.push([newIngredient]);
+  setMeal(newMeal);
+}
+
+function addMeal(knownFood) {
+  // Check if the ingredient already exists in the meal
+  for (let i = 0; i < meal.length; i++) {
+    if (meal[i][0].title === knownFood.title) {
+      const newMeal = [...meal];
+      newMeal[i] = [knownFood];
+      setMeal(newMeal);
+      return;
+    } 
+  }
+  // Ingredient doesn't exist, so add it to a new dish
+  const newMeal = [...meal];
+  newMeal.push([knownFood]);
   setMeal(newMeal);
 }
 // total and asking for the input of wanted calories per day
@@ -41,38 +89,23 @@ function addIngredient(newIngredient) {
 // Css style
 
 
-function reamainingCal(required){
-  var arrC = [];
-  for (let i = 0; i < meal.length; i++) {
-    let tCalorie = 0;
-    for (let j = 0; j < meal[i].length; j++) {
-      tCalorie += meal[i][j].weightG * meal[i][j].caloriePG;
-    }
-    arrC = [...arrC , tCalorie];
-  }
-  for (let i = 0; i < meal.length; i++) {
-    totalC = totalC + arrC[i]
-  }
-  setTotal(required-totalC);
-}
+function remainingCal(required) {
+  let totalC = 0;
+  let arrC = [];
 
-function setCalcValue() {
-  var arrC = [];
-  var single = [];
-  var mealItems = [];
   for (let i = 0; i < meal.length; i++) {
     let tCalorie = 0;
     for (let j = 0; j < meal[i].length; j++) {
       tCalorie += meal[i][j].weightG * meal[i][j].caloriePG;
     }
-    arrC = [...arrC , tCalorie];
+    arrC = [...arrC, tCalorie];
   }
+
   for (let i = 0; i < meal.length; i++) {
-    single = meal[i][0].title + " has " + arrC[i] + " calories";
-    mealItems.push(single);
-    totalC = totalC + arrC[i]
+    totalC += arrC[i];
   }
-  setOutput(mealItems);
+
+  setTotal(required - totalC);
 }
 
 
@@ -95,8 +128,11 @@ return (
     {output.map((value, index) => (
       <p key={index}>{value}</p>
     ))}
-    <NeededCalorie onCalorie={reamainingCal} />
-    <CreateIngredient onAdd={handleAddIngredient} />
+    <NeededCalorie onCalorie={remainingCal} />
+    <CreateMeal onAdd={(newMeal) => handleAddIngredient(null, newMeal)} />
+    <CreateIngredient
+      onAdd={(newIngredient) => handleAddIngredient(newIngredient, null)}
+    />
     <table>
       <tbody>
         {meal.map((row, rowIndex) => (
