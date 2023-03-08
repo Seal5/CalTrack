@@ -22,7 +22,26 @@ function CreateIngredient(props) {
   }
 
 // passing ingredient to App
-  function sendIngredient(event) {
+function sendIngredient(event) {
+  if (ingredient.title.trim() === "" || ingredient.ingreTitle.trim() === "" || ingredient.caloriePG.trim() === "" || ingredient.weightG.trim() === "") {
+    alert("Please fill in all values!");
+    setIngredient({
+      title: ingredient.title,
+      ingreTitle: "",
+      caloriePG: "",
+      weightG: "",
+    });
+    event.preventDefault();
+  } else if (ingredient.caloriePG*ingredient.weightG > 5000 || ingredient.caloriePG*ingredient.weightG < 0){
+    alert("Please enter an appropriate value!");
+    setIngredient({
+      title: ingredient.title,
+      ingreTitle: "",
+      caloriePG: "",
+      weightG: "",
+    });
+    event.preventDefault();
+  }else {
     props.onAdd(ingredient);
     setIngredient({
       title: ingredient.title,
@@ -32,6 +51,7 @@ function CreateIngredient(props) {
     });
     event.preventDefault();
   }
+}
 
 // Returning the ingredient list in an appropriate positio according to dish entree name 
   return (

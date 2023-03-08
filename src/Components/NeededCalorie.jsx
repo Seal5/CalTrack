@@ -13,9 +13,13 @@ function NeededCalorie(props) {
 
   // passing ingredient to App
   function sendCalorie(event) {
-    event.preventDefault();
-    props.onCalorie(calorie);
-    setCalorie(calorie);
+    if(calorie > 750 && calorie <7000){
+      event.preventDefault();
+      props.onCalorie(calorie);
+    } else{
+      event.preventDefault();
+      alert("Please enter a valid number!");    
+    }
   }
 
 // Returning the ingredient list in an appropriate positio according to dish entree name 

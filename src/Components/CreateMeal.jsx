@@ -19,19 +19,38 @@ function CreateMeal(props) {
       };
     });
   }
-
-  // passing ingredient to App
   function sendMeal(event) {
-    props.onAdd(meal);
-    setMeal({
-      title: "",
-      caloriePG: "",
-      weightG: 1,
-    });
-    event.preventDefault();
+    if (
+        meal.title.trim() === "" ||
+        meal.caloriePG.trim() === ""
+    ) {
+        alert("Please fill in both spaces!");
+        setMeal({
+            title: "",
+            caloriePG: "",
+            weightG: 1,
+        });
+        event.preventDefault();
+    } else if (meal.caloriePG < 0 || meal.caloriePG > 5000){
+        alert("Please check your caloric amount!");
+        setMeal({
+          title: "",
+          caloriePG: "",
+          weightG: 1,
+        });
+        event.preventDefault();
+    } else {
+        props.onAdd(meal);
+        setMeal({
+        title: "",
+        caloriePG: "",
+        weightG: 1,
+        });
+        event.preventDefault();
+    }
   }
 
-  // Returning the ingredient list in an appropriate positio according to dish entree name
+  // Returning the meal in an appropriate positio according to dish entree name
   return (
     <div>
       <form>

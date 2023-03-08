@@ -13,6 +13,7 @@ function App() {
   const [total, setTotal] = useState(2250);
   const [meal, setMeal] = useState([]);
 
+// use effect to load proper values
 useEffect(() => {
   setCalcValue();
   remainingCal(total);
@@ -88,11 +89,8 @@ function addMeal(knownFood) {
   setMeal(newMeal);
   remainingCal(total);
 }
-// total and asking for the input of wanted calories per day
 
-// Display output how much calorie left 
 
-// Css style
 function remainingCal(required) {
   setTotal(required); 
   let totalC = 0;
@@ -127,7 +125,7 @@ function deleteIngredient(idx, idy) {
 return (
   <div className="output">
     <Header />
-    <p className="remaining">Calorie Reaming: {remaining}</p>
+    {remaining < 0? <p className="remaining">Calorie Lost Needed: {-remaining}</p>  :<p className="remaining">Calorie Remaing: {remaining}</p>}
     {output.map((value, index) => (
       <p className="mealCalorie" key={index}>
         {value}
