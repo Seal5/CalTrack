@@ -9,16 +9,18 @@ import NeededCalorie from "./NeededCalorie";
 function App() {
   // set up states for ingredient and meal
   const [output, setOutput] = useState([]);
+  const[remaining, setRemaining] = useState();
   const [total, setTotal] = useState(2250);
   const [meal, setMeal] = useState([]);
 
 useEffect(() => {
   setCalcValue();
+  remainingCal(total);
 }, [meal]);
 
 useEffect(() => {
   remainingCal(total);
-}, [meal]);
+}, [total]);
 
 function handleAddIngredient(newIngredient, newMeal) {
   if(newIngredient !== null){
@@ -58,6 +60,7 @@ function addIngredient(newIngredient) {
       const newMeal = [...meal];
       newMeal[i] = [...newMeal[i], newIngredient];
       setMeal(newMeal);
+      remainingCal(total);
       return;
     }
   }
@@ -65,6 +68,7 @@ function addIngredient(newIngredient) {
   const newMeal = [...meal];
   newMeal.push([newIngredient]);
   setMeal(newMeal);
+  remainingCal(total);
 }
 
 function addMeal(knownFood) {
@@ -74,22 +78,23 @@ function addMeal(knownFood) {
       const newMeal = [...meal];
       newMeal[i] = [knownFood];
       setMeal(newMeal);
+      remainingCal(total);
       return;
-    } 
+    }
   }
   // Ingredient doesn't exist, so add it to a new dish
   const newMeal = [...meal];
   newMeal.push([knownFood]);
   setMeal(newMeal);
+  remainingCal(total);
 }
 // total and asking for the input of wanted calories per day
 
 // Display output how much calorie left 
 
 // Css style
-
-
 function remainingCal(required) {
+  setTotal(required); 
   let totalC = 0;
   let arrC = [];
 
@@ -104,10 +109,8 @@ function remainingCal(required) {
   for (let i = 0; i < meal.length; i++) {
     totalC += arrC[i];
   }
-
-  setTotal(required - totalC);
+  setRemaining(total - totalC);
 }
-
 
 // deleting ingredient off
 function deleteIngredient(idx, idy) {
@@ -122,14 +125,18 @@ function deleteIngredient(idx, idy) {
 
 // extracting the entire webpage
 return (
-  <div>
+  <div className="output">
     <Header />
-    <p>Calorie Reaming: {total}</p>
+    <p className="remaining">Calorie Reaming: {remaining}</p>
     {output.map((value, index) => (
-      <p key={index}>{value}</p>
+      <p className="mealCalorie" key={index}>
+        {value}
+      </p>
     ))}
     <NeededCalorie onCalorie={remainingCal} />
+    <h2>Dishes With Known Caloric Value</h2>
     <CreateMeal onAdd={(newMeal) => handleAddIngredient(null, newMeal)} />
+    <h2>Dishes Made With Multiple Ingredients</h2>
     <CreateIngredient
       onAdd={(newIngredient) => handleAddIngredient(newIngredient, null)}
     />
@@ -137,6 +144,7 @@ return (
       <tbody>
         {meal.map((row, rowIndex) => (
           <tr key={rowIndex}>
+            <p className="dishTitle">{row[0].title}</p>
             {row.map((value, colIndex) => (
               <td key={colIndex}>
                 <Ingredient

@@ -38,12 +38,14 @@ function CreateIngredient(props) {
     <div>
       <form>
         <input
+          type="text"
           placeholder="Dish name..."
           name="title"
           onChange={handleChange}
           value={ingredient.title}
         />
         <input
+          type="text"
           placeholder="Ingredient name..."
           name="ingreTitle"
           onChange={handleChange}

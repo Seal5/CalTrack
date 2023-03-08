@@ -8,10 +8,8 @@ function Ingredient(props) {
 
   return (
     <div className="ingredient">
-      {props.idx === 0 ? <h1>{props.title}</h1> : null}
-      <p>{props.ingreTitle}</p>
-      <p>{props.caloriePG}</p>
-      <p>{props.weightG}</p>
+      {props.ingreTitle ? <p>Ingredient Name: {props.ingreTitle}</p> : null}
+      <p>Amount of Calories: {props.weightG * props.caloriePG}</p>
       <button onClick={deleteIngredient}>
         <DeleteIcon />
       </button>

@@ -23,7 +23,7 @@ function NeededCalorie(props) {
     <div>
       <form>
         <input
-          placeholder="What is your daily caloric goal?"
+          placeholder="Daily calorie goal..."
           type="number"
           onChange={handleChange}
         />
