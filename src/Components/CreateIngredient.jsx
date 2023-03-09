@@ -21,7 +21,7 @@ function CreateIngredient(props) {
     });
   }
 
-// passing ingredient to App
+// passing ingredient to App with error checking
 function sendIngredient(event) {
   if (ingredient.title.trim() === "" || ingredient.ingreTitle.trim() === "" || ingredient.caloriePG.trim() === "" || ingredient.weightG.trim() === "") {
     alert("Please fill in all values!");
@@ -53,7 +53,7 @@ function sendIngredient(event) {
   }
 }
 
-// Returning the ingredient list in an appropriate positio according to dish entree name 
+// returning the ingredient list in an appropriate positio according to dish entree name 
   return (
     <div>
       <form>

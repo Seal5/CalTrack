@@ -1,6 +1,7 @@
 import React from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 
+// displaying each ingredient 
 function Ingredient(props) {
   function deleteIngredient() {
     props.onDelete(props.idx, props.idy);

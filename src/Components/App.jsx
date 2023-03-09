@@ -23,6 +23,7 @@ useEffect(() => {
   remainingCal(total);
 }, [total]);
 
+// handling all times when meal is added 
 function handleAddIngredient(newIngredient, newMeal) {
   if(newIngredient !== null){
     addIngredient(newIngredient);
@@ -30,10 +31,9 @@ function handleAddIngredient(newIngredient, newMeal) {
   else if(newMeal !== null){
     addMeal(newMeal);
   }
-  setCalcValue(newMeal);
-  remainingCal(total);
 }
 
+// setting total caloric values for each meal
 function setCalcValue() {
   var totalC = 0;
   var arrC = [];
@@ -54,6 +54,7 @@ function setCalcValue() {
   setOutput(mealItems);
 }
 
+// adding ingredient for meals with multiple ingredient s 
 function addIngredient(newIngredient) {
   // Check if the ingredient already exists in the meal
   for (let i = 0; i < meal.length; i++) {
@@ -72,6 +73,7 @@ function addIngredient(newIngredient) {
   remainingCal(total);
 }
 
+// adding meals straight forward the caloric values are already known 
 function addMeal(knownFood) {
   // Check if the ingredient already exists in the meal
   for (let i = 0; i < meal.length; i++) {
@@ -90,7 +92,7 @@ function addMeal(knownFood) {
   remainingCal(total);
 }
 
-
+// calculating remaining calories
 function remainingCal(required) {
   setTotal(required); 
   let totalC = 0;

@@ -1,7 +1,7 @@
 import AddIcon from "@mui/icons-material/Add";
 import React, { useState } from "react";
 
-// creating ingredient
+// creating meal
 function CreateMeal(props) {
   const [meal, setMeal] = useState({
     title: "",
@@ -19,6 +19,7 @@ function CreateMeal(props) {
       };
     });
   }
+  // sending meal with error check
   function sendMeal(event) {
     if (
         meal.title.trim() === "" ||
