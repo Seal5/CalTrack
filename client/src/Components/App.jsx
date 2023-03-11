@@ -1,4 +1,5 @@
 import React, { useState, useEffect} from "react";
+import Axios from 'axios';
 import Header from "./Header";
 import Footer from "./Footer";
 import Ingredient from "./Ingredient";
@@ -13,15 +14,26 @@ function App() {
   const [total, setTotal] = useState(2250);
   const [meal, setMeal] = useState([]);
 
+// const addToList = () => {
+//   Axios.post("http://localhost:3001/insert", {
+//     meal: meal
+//   });
+// };
+
 // use effect to load proper values
 useEffect(() => {
   setCalcValue();
   remainingCal(total);
+  addToList();
 }, [meal]);
 
 useEffect(() => {
   remainingCal(total);
 }, [total]);
+
+useEffect(() => {
+
+}, [remaining]);
 
 // handling all times when meal is added 
 function handleAddIngredient(newIngredient, newMeal) {

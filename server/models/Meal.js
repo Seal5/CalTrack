@@ -1,11 +1,15 @@
-const mongoose = reqiore('mongoose')
+const mongoose = require('mongoose')
+
 const MealSchema = new mongoose.Schema({
-    foodName:{
-        type: String,
-        required: true,
-    }
-    daysSinceIAte: {
-        type: Number,
-        required: true,
+    Meal: [
+    {
+      title: { type: String, required: true },
+      ingreTitle: { type: String, required: true },
+      caloriePG: { type: Number, required: true },
+      weightG: { type: Number, required: true },
     },
+  ],
 });
+
+const Meal = mongoose.model("Meal", MealSchema)
+module.exports = Meal
