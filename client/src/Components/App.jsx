@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from "react";
-import Axios from 'axios';
+// import Axios from 'axios';
 import Header from "./Header";
 import Footer from "./Footer";
 import Ingredient from "./Ingredient";
@@ -24,7 +24,7 @@ function App() {
 useEffect(() => {
   setCalcValue();
   remainingCal(total);
-  addToList();
+  // addToList();
 }, [meal]);
 
 useEffect(() => {
