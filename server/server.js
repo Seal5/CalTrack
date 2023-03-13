@@ -1,8 +1,8 @@
-const express = require('express');
+import express from "express";
 const app = express();
 
 const cors = require('cors');
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const MealsModel = require("./models/Meals");
 
 
@@ -16,14 +16,18 @@ mongoose.connect(
     }
 );
 
-app.get("/getMeal", async (req, res) => {
+app.get("/", async (req, res) => {
+    const meal1 = new MealsModel({
+      title: "Kimchi",
+      ingreTitle: "Cabbage",
+      caloriePG: 35,
+      weightG: 25,
+    });
   try {
-    const meals = await MealsModel.find({});
-    console.log("meals:", meals); // log the meals array to the console
-    res.json(meals);
+    await meal1.save();
+    console.log("meals:", meal1); // log the meals array to the console
   } catch (err) {
     console.log("error:", err); // log any errors to the console
-    res.json(err);
   }
 });
 
