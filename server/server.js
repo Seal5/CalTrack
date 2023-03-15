@@ -14,10 +14,6 @@ app.use("/auth", userRouter);
 
 mongoose.connect(
   "mongodb+srv://user:password12345@mealdata.tkexeqs.mongodb.net/?retryWrites=true&w=majority",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
 );
 
 // app.get("/", async (req, res) => {
