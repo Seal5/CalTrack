@@ -32,30 +32,36 @@ app.get("/", async (req, res) => {
     res.send("Meal saved");
   } catch (err) {
     console.log("error:", err);
+    res.status(500).send("Error saving meal");
   }
 });
 
 app.post("/insert", async (req, res) => {
+  const { title, ingreTitle, caloriePG, weightG } = req.body;
+
   const meal = new MealsModel({
-    title: "Hi",
-    ingreTitle: "Hi",
-    caloriePG: 35,
-    weightG: 30,
+    title,
+    ingreTitle,
+    caloriePG,
+    weightG,
   });
+
+  try {
+    const savedMeal = await meal.save();
+    res.json(savedMeal);
+  } catch (err) {
+    console.log("error:", err);
+    res.status(500).send("Error saving meal");
+  }
 });
 
 app.listen(3001, () => {
   console.log("Server listening on port 3001");
 });
 
-// import express from "express";
-// import cors from "cors";
-// import mongoose from "mongoose";
-
 // const app = express();
 // import { mealRouter } from './routes/meals.js';
 // import { userRouter } from "./routes/users.js";
-
 
 // app.use(express.json());
 // app.use(cors());
@@ -86,7 +92,7 @@ app.listen(3001, () => {
 // });
 
 // app.post("/insert", async (req, res) => {
-//     const meal = new MealModel({    
+//     const meal = new MealModel({
 //       title: "Hi",
 //       ingreTitle: "Hi",
 //       caloriePG: 35,
@@ -96,4 +102,4 @@ app.listen(3001, () => {
 
 // app.listen(3001, () => {
 //   console.log("Server listening on port 3001");
-// }); 
+// });
