@@ -11,6 +11,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/auth", userRouter);
+app.use("/meals", mealRouter); // Mount the mealRouter middleware
 
 mongoose.connect(
   "mongodb+srv://user:password12345@mealdata.tkexeqs.mongodb.net/?retryWrites=true&w=majority",
@@ -32,23 +33,16 @@ app.get("/", async (req, res) => {
     res.send("Meal saved");
   } catch (err) {
     console.log("error:", err);
-    res.status(500).send("Error saving meal");
   }
 });
 
 app.post("/insert", async (req, res) => {
-  const { title, ingreTitle, caloriePG, weightG } = req.body;
-
-  const meal = new MealsModel({
-    title,
-    ingreTitle,
-    caloriePG,
-    weightG,
-  });
+  const mealData = req.body;
+  const meal = new MealsModel(mealData);
 
   try {
-    const savedMeal = await meal.save();
-    res.json(savedMeal);
+    await meal.save();
+    res.status(201).send("Meal saved");
   } catch (err) {
     console.log("error:", err);
     res.status(500).send("Error saving meal");
@@ -59,9 +53,12 @@ app.listen(3001, () => {
   console.log("Server listening on port 3001");
 });
 
+
+
 // const app = express();
 // import { mealRouter } from './routes/meals.js';
 // import { userRouter } from "./routes/users.js";
+
 
 // app.use(express.json());
 // app.use(cors());
@@ -92,7 +89,7 @@ app.listen(3001, () => {
 // });
 
 // app.post("/insert", async (req, res) => {
-//     const meal = new MealModel({
+//     const meal = new MealModel({    
 //       title: "Hi",
 //       ingreTitle: "Hi",
 //       caloriePG: 35,
@@ -102,4 +99,4 @@ app.listen(3001, () => {
 
 // app.listen(3001, () => {
 //   console.log("Server listening on port 3001");
-// });
+// }); 
