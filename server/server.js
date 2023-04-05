@@ -6,6 +6,8 @@ import { mealRouter } from "./routes/meals.js";
 import { userRouter } from "./routes/users.js";
 
 const app = express();
+const app = express();
+
 
 app.use(express.json());
 app.use(cors());
