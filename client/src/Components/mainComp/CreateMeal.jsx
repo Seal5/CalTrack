@@ -19,6 +19,7 @@ function CreateMeal(props) {
       };
     });
   }
+  
   // sending meal with error check
   function sendMeal(event) {
     if (
