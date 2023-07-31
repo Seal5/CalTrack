@@ -27,10 +27,16 @@ const Login = () => {
                 username,
                 password,
             });
-            
-            setCookies("acess_token", response.data.token);
-            window.localStorage.setItem("userID", response.data.userID);
-            navigate("/")
+            if (response.data.message) {
+                setUsername("");
+                setPassword("");
+                alert(response.data.message);
+            }
+            else {
+                setCookies("access_token", response.data.token); 
+                window.localStorage.setItem("userID", response.data.userID);
+                navigate("/");
+            }
         } catch (err) {
             console.error(err)
         }
@@ -56,16 +62,23 @@ const Register = () => {
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
-        event.preventDefault();
-        try {
-            await axios.post("http://localhost:3001/auth/register", {
-                username,
-                password,
-            });
+    event.preventDefault();
+    try {
+        const response = await axios.post("http://localhost:3001/auth/register", {
+        username,
+        password,
+        });
+        if ((response.data.message == "User already exists")) {
+            setUsername("");
+            setPassword("");
+        } else {
             alert("Registration Completed! Now you may login.");
-        } catch (err) {
-            console.error(err)
+            setUsername("");
+            setPassword("");
         }
+    } catch (err) {
+        console.error(err);
+    }
     };
 
     return (
