@@ -173,7 +173,7 @@ function App() {
                     title={value.title}
                     ingreTitle={value.ingreTitle}
                     weightG={value.weightG}
-                    caloriePG={value.caloriePG}
+                    caloriePG={value.caloriePG} 
                     onDelete={deleteIngredient}
                   />
                 </td>

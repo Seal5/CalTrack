@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use("/auth", userRouter);
-app.use("/stats", totalRouter);
+app.use("/total", totalRouter);
 
 mongoose.connect(
     "mongodb+srv://trackcalorie:trackcalorie123@calories.tnch48i.mongodb.net/calories?retryWrites=true&w=majority",
