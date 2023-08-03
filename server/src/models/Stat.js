@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
  
-const TotalSchema = new mongoose.Schema({
+const StatSchema = new mongoose.Schema({
     calorieTot: { type: Number, required: true },
     calorieDif: { type: Number, required: true },
     // meals: [{ type: String, require: true }],
@@ -8,4 +8,4 @@ const TotalSchema = new mongoose.Schema({
 });
 
 
-export const TotalModel = mongoose.model("total", TotalSchema)
+export const StatModel = mongoose.model("stat", StatSchema)
