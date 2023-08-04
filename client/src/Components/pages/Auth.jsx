@@ -61,7 +61,7 @@ const Register = () => {
     const [_, setCookies] = useCookies(["access_token"]);
     const navigate = useNavigate();
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event) =>
     event.preventDefault();
     try {
         const response = await axios.post("http://localhost:3001/auth/register", {

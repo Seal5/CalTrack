@@ -12,123 +12,123 @@ import CreateMeal from "./CreateMeal";
 import NeededCalorie from "./NeededCalorie";
 
 function App() {
-  // set up states for ingredient and meal
-  const [output, setOutput] = useState([]);
-  const [remaining, setRemaining] = useState();
-  const [total, setTotal] = useState(2250);
-  const [meal, setMeal] = useState([]);
+  // // set up states for ingredient and meal
+  // const [output, setOutput] = useState([]);
+  // const [remaining, setRemaining] = useState();
+  // const [total, setTotal] = useState(2250);
+  // const [meal, setMeal] = useState([]);
 
-  // use effect to load proper values
-  useEffect(() => {
-    setCalcValue();
-    remainingCal(total);
-    // addToList();
-  }, [meal]);
+  // // use effect to load proper values
+  // useEffect(() => {
+  //   setCalcValue();
+  //   remainingCal(total);
+  //   // addToList();
+  // }, [meal]);
 
-  useEffect(() => {
-    remainingCal(total);
-  }, [total]);
+  // useEffect(() => {
+  //   remainingCal(total);
+  // }, [total]);
 
-  useEffect(() => {}, [remaining]);
+  // useEffect(() => {}, [remaining]);
 
-  // handling all times when meal is added
-  function handleAddIngredient(newIngredient, newMeal) {
-    if (newIngredient !== null) {
-      addIngredient(newIngredient);
-    } else if (newMeal !== null) {
-      addMeal(newMeal);
-    }
-  }
+  // // handling all times when meal is added
+  // function handleAddIngredient(newIngredient, newMeal) {
+  //   if (newIngredient !== null) {
+  //     addIngredient(newIngredient);
+  //   } else if (newMeal !== null) {
+  //     addMeal(newMeal);
+  //   }
+  // }
 
-  // setting total caloric values for each meal
-  function setCalcValue() {
-    var totalC = 0;
-    var arrC = [];
-    var single = [];
-    var mealItems = [];
-    for (let i = 0; i < meal.length; i++) {
-      let tCalorie = 0;
-      for (let j = 0; j < meal[i].length; j++) {
-        tCalorie += meal[i][j].weightG * meal[i][j].caloriePG;
-      }
-      arrC = [...arrC, tCalorie];
-    }
-    for (let i = 0; i < meal.length; i++) {
-      single = meal[i][0].title + " has " + arrC[i] + " calories";
-      mealItems.push(single);
-      totalC = totalC + arrC[i];
-    }
-    setOutput(mealItems);
-  }
+  // // setting total caloric values for each meal
+  // function setCalcValue() {
+  //   var totalC = 0;
+  //   var arrC = [];
+  //   var single = [];
+  //   var mealItems = [];
+  //   for (let i = 0; i < meal.length; i++) {
+  //     let tCalorie = 0;
+  //     for (let j = 0; j < meal[i].length; j++) {
+  //       tCalorie += meal[i][j].weightG * meal[i][j].caloriePG;
+  //     }
+  //     arrC = [...arrC, tCalorie];
+  //   }
+  //   for (let i = 0; i < meal.length; i++) {
+  //     single = meal[i][0].title + " has " + arrC[i] + " calories";
+  //     mealItems.push(single);
+  //     totalC = totalC + arrC[i];
+  //   }
+  //   setOutput(mealItems);
+  // }
 
-  // adding ingredient for meals with multiple ingredient s
-  function addIngredient(newIngredient) {
-    // Check if the ingredient already exists in the meal
-    for (let i = 0; i < meal.length; i++) {
-      if (meal[i][0].title === newIngredient.title) {
-        const newMeal = [...meal];
-        newMeal[i] = [...newMeal[i], newIngredient];
-        setMeal(newMeal);
-        remainingCal(total);
-        return;
-      }
-    }
-    // Ingredient doesn't exist, so add it to a new dish
-    const newMeal = [...meal];
-    newMeal.push([newIngredient]);
-    setMeal(newMeal);
-    remainingCal(total);
-  }
+  // // adding ingredient for meals with multiple ingredient s
+  // function addIngredient(newIngredient) {
+  //   // Check if the ingredient already exists in the meal
+  //   for (let i = 0; i < meal.length; i++) {
+  //     if (meal[i][0].title === newIngredient.title) {
+  //       const newMeal = [...meal];
+  //       newMeal[i] = [...newMeal[i], newIngredient];
+  //       setMeal(newMeal);
+  //       remainingCal(total);
+  //       return;
+  //     }
+  //   }
+  //   // Ingredient doesn't exist, so add it to a new dish
+  //   const newMeal = [...meal];
+  //   newMeal.push([newIngredient]);
+  //   setMeal(newMeal);
+  //   remainingCal(total);
+  // }
 
-  // adding meals straight forward the caloric values are already known
-  function addMeal(knownFood) {
-    // Check if the ingredient already exists in the meal
-    for (let i = 0; i < meal.length; i++) {
-      if (meal[i][0].title === knownFood.title) {
-        const newMeal = [...meal];
-        newMeal[i] = [knownFood];
-        setMeal(newMeal);
-        remainingCal(total);
-        return;
-      }
-    }
-    // Ingredient doesn't exist, so add it to a new dish
-    const newMeal = [...meal];
-    newMeal.push([knownFood]);
-    setMeal(newMeal);
-    remainingCal(total);
-  }
+  // // adding meals straight forward the caloric values are already known
+  // function addMeal(knownFood) {
+  //   // Check if the ingredient already exists in the meal
+  //   for (let i = 0; i < meal.length; i++) {
+  //     if (meal[i][0].title === knownFood.title) {
+  //       const newMeal = [...meal];
+  //       newMeal[i] = [knownFood];
+  //       setMeal(newMeal);
+  //       remainingCal(total);
+  //       return;
+  //     }
+  //   }
+  //   // Ingredient doesn't exist, so add it to a new dish
+  //   const newMeal = [...meal];
+  //   newMeal.push([knownFood]);
+  //   setMeal(newMeal);
+  //   remainingCal(total);
+  // }
 
-  // calculating remaining calories
-  function remainingCal(required) {
-    setTotal(required);
-    let totalC = 0;
-    let arrC = [];
+  // // calculating remaining calories
+  // function remainingCal(required) {
+  //   setTotal(required);
+  //   let totalC = 0;
+  //   let arrC = [];
 
-    for (let i = 0; i < meal.length; i++) {
-      let tCalorie = 0;
-      for (let j = 0; j < meal[i].length; j++) {
-        tCalorie += meal[i][j].weightG * meal[i][j].caloriePG;
-      }
-      arrC = [...arrC, tCalorie];
-    }
+  //   for (let i = 0; i < meal.length; i++) {
+  //     let tCalorie = 0;
+  //     for (let j = 0; j < meal[i].length; j++) {
+  //       tCalorie += meal[i][j].weightG * meal[i][j].caloriePG;
+  //     }
+  //     arrC = [...arrC, tCalorie];
+  //   }
 
-    for (let i = 0; i < meal.length; i++) {
-      totalC += arrC[i];
-    }
-    setRemaining(total - totalC);
-  }
+  //   for (let i = 0; i < meal.length; i++) {
+  //     totalC += arrC[i];
+  //   }
+  //   setRemaining(total - totalC);
+  // }
 
-  // deleting ingredient off
-  function deleteIngredient(idx, idy) {
-    setMeal((prevMeal) => {
-      const newMeal = [...prevMeal];
-      newMeal[idy] = newMeal[idy].filter((ingredient, index) => {
-        return index !== idx;
-      });
-      return newMeal.filter((dish) => dish.length > 0);
-    });
-  }
+  // // deleting ingredient off
+  // function deleteIngredient(idx, idy) {
+  //   setMeal((prevMeal) => {
+  //     const newMeal = [...prevMeal];
+  //     newMeal[idy] = newMeal[idy].filter((ingredient, index) => {
+  //       return index !== idx;
+  //     });
+  //     return newMeal.filter((dish) => dish.length > 0);
+  //   });
+  // }
 
   // extracting the entire webpage
   return (
@@ -141,6 +141,7 @@ function App() {
             <Route path="/stats" element={<Stats />} />
           </Routes>
       </Router>
+      {/*
       <Header />
       {remaining < 0 ? (
         <p className="remaining">Calorie Lost Needed: {-remaining}</p>
@@ -182,7 +183,7 @@ function App() {
           ))}
         </tbody>
       </table>
-      <Footer />
+      <Footer /> */}
     </div>
   );
 }
