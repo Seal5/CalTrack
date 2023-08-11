@@ -12,13 +12,21 @@ import { useCookies } from "react-cookie";
 
 export const Home = () => {
   // set up states for ingredient and meal
-  const userID = useGetUserID();
   const [cookies, _] = useCookies(["access_token"]);
   const navigate = useNavigate();
   const [output, setOutput] = useState([]);
   const [remaining, setRemaining] = useState();
   const [total, setTotal] = useState(2250);
   const [meal, setMeal] = useState([]);
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const userID = useGetUserID();
+
+  // Update the time every minute
+  useEffect(() => {
+    const interval = setInterval(() => {
+    setCurrentTime(new Date());
+    setCurrentTime(currentTime.toLocaleDateString())
+  }, 60000);
 
   // use effect to load proper values
   useEffect(() => {
@@ -133,13 +141,16 @@ export const Home = () => {
   }
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault(); 
     try {
       await axios.post(
         "http://localhost:3001/stat",
         { 
-          ...remaining,
-          ...total
+          total: total,
+          remaining: remaining,
+          date: currentDate,
+          // meal: meal,
+          userOwner: userID
         },
         {
           headers: { authorization: cookies.access_token },
