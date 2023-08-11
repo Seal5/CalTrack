@@ -23,7 +23,7 @@ export const Home = () => {
   // use effect to load proper values
   useEffect(() => {
     setCalcValue();
-    remainingCal(total);
+    remainingCal(total)
     // addToList();
   }, [meal]);
 
@@ -138,8 +138,8 @@ export const Home = () => {
       await axios.post(
         "http://localhost:3001/stat",
         { 
-          remaining, 
-          total
+          ...remaining,
+          ...total
         },
         {
           headers: { authorization: cookies.access_token },
@@ -174,6 +174,7 @@ export const Home = () => {
       <CreateIngredient
         onAdd={(newIngredient) => handleAddIngredient(newIngredient, null)}
       />
+      <button onClick={handleSubmit}> Update </button>
       <table>
         <tbody>
           {meal.map((row, rowIndex) => (
@@ -197,7 +198,6 @@ export const Home = () => {
           ))}
         </tbody>
       </table>
-      <button onClick={handleSubmit}> Update </button>
       <Footer />
     </div>
   );

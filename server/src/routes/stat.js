@@ -1,7 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
 import { StatModel } from "../models/Stat.js";
-import { UserModel } from "../models/Users.js"
+import { UserModel } from "../models/Users.js";
+// import { verifyToken } from "./users.js"
 
 const router = express.Router();
 router.get("/", async (req, res) => {
@@ -21,6 +22,7 @@ router.post("/", async (req, res) => {
         res.json(err);
     }
 });
+
 router.put("/", async (req, res) => {
   try {
     const stat = await StatModel.findById(req.body.statId);
