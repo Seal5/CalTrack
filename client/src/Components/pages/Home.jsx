@@ -18,15 +18,19 @@ export const Home = () => {
   const [remaining, setRemaining] = useState();
   const [total, setTotal] = useState(2250);
   const [meal, setMeal] = useState([]);
-  const [currentTime, setCurrentTime] = useState(new Date());
+  const [currentDate, setCurrentDate] = useState(new Date());
   const userID = useGetUserID();
 
   // Update the time every minute
   useEffect(() => {
     const interval = setInterval(() => {
-    setCurrentTime(new Date());
-    setCurrentTime(currentTime.toLocaleDateString())
-  }, 60000);
+      const currentDate = new Date();
+      const formattedDate = currentDate.toISOString().slice(0, 10); // Gives you 'YYYY-MM-DD'
+      setCurrentDate(formattedDate);
+    }, 60000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   // use effect to load proper values
   useEffect(() => {
@@ -148,7 +152,7 @@ export const Home = () => {
         { 
           total: total,
           remaining: remaining,
-          date: currentDate,
+          currentDate: currentDate,
           // meal: meal,
           userOwner: userID
         },
@@ -168,6 +172,7 @@ export const Home = () => {
   return (
     <div className="output">
       <Header />
+      <h2>Calories For {currentDate}</h2>
       {remaining < 0 ? (
         <p className="remaining">Calorie Lost Needed: {-remaining}</p>
       ) : (

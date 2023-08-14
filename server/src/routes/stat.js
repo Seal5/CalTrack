@@ -13,15 +13,24 @@ router.get("/", async (req, res) => {
         res.json(err);
     }
 })
+
 router.post("/", async (req, res) => {
-    const stat = new StatModel(req.body); 
+    const { currentDate, userOwner } = req.body;
     try {
-        const response = await stat.save(); 
+        const filter = { currentDate, userOwner };
+        const options = {
+            new: true,
+            upsert: true
+        };
+
+        // Use findOneAndUpdate to perform the upsert
+        const response = await StatModel.findOneAndUpdate(filter, req.body, options);
+
         res.json(response);
     } catch (err) {
-        res.json(err);
+        res.status(500).json({ error: err.message });
     }
-});
+  });   
 
 router.put("/", async (req, res) => {
   try {
