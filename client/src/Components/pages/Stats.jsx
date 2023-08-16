@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import AdapterDateFns from '@mui/lab/AdapterDateFns'
+import DatePick from "../mainComp/DatePick";
 import axios from "axios";
 
 export const Stats = () => {
@@ -17,7 +20,10 @@ export const Stats = () => {
         fetchValues();
     }, []);
     return (
-        <div> 
-            <h2></h2>
-        </div>);
+        <div>
+          <DatePick />
+
+          <h2></h2>
+        </div>
+    );
 };

@@ -18,7 +18,7 @@ export const Home = () => {
   const [remaining, setRemaining] = useState();
   const [total, setTotal] = useState(2250);
   const [meal, setMeal] = useState([]);
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const [currentDate, setCurrentDate] = useState(new Date().toISOString().slice(0, 10));
   const userID = useGetUserID();
 
   // Update the time every minute
