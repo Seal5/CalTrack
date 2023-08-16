@@ -21,9 +21,10 @@ export const Stats = () => {
     }, []);
     return (
         <div>
+          <h1> Enter the date of your caloric stats</h1>
           <DatePick />
 
-          <h2></h2>
+          <h2>{stats.total}</h2>
         </div>
     );
 };

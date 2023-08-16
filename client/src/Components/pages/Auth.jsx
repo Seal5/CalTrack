@@ -64,18 +64,18 @@ const Register = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3001/auth/register", {
-        username,
-        password,
-      });
-      if (response.data.message === "User already exists") {
-        setUsername("");
-        setPassword("");
-      } else {
-        alert("Registration Completed! Now you may login.");
-        setUsername("");
-        setPassword("");
-      }
+        const response = await axios.post("http://localhost:3001/auth/register", {
+          username,
+          password,
+        });
+        if (response.data.message === "User already exists") {
+          setUsername("");
+          setPassword("");
+        } else {
+          alert("Registration Completed! Now you may login.");
+          setUsername("");
+          setPassword("");
+        }
     } catch (err) {
       console.error(err);
     }
