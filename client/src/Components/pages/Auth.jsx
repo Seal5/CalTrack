@@ -27,7 +27,11 @@ const Login = () => {
                 username,
                 password,
             });
-            if (response.data.message) {
+            if (username == "" || password == "") {
+              alert("Fill in all the fields before submitting");
+              setUsername("");
+              setPassword("");
+            } else if (response.data.message) {
                 setUsername("");
                 setPassword("");
                 alert(response.data.message);
@@ -68,7 +72,12 @@ const Register = () => {
           username,
           password,
         });
-        if (response.data.message === "User already exists") {
+        if (username == "" || password == ""){
+          alert("Fill in all the fields before submitting");
+          setUsername("");
+          setPassword("");
+        } else if (response.data.message === "User already exists") {
+          alert("User Already Created");
           setUsername("");
           setPassword("");
         } else {
