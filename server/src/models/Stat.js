@@ -6,12 +6,11 @@ const StatSchema = new mongoose.Schema({
   currentDate: { type: String, required: true },
   userOwner: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "users",
+    ref: "User",
     required: true,
   },
 });
 
-// Adding a unique compound index
 StatSchema.index({ currentDate: 1, userOwner: 1 }, { unique: true });
 
-export const StatModel = mongoose.model("stat", StatSchema);
+export const StatModel = mongoose.model("Stats", StatSchema);

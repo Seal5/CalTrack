@@ -1,18 +1,20 @@
 import express from "express";
 import mongoose from "mongoose";
+import bodyParser from "body-parser";
 import { StatModel } from "../models/Stat.js";
-import { UserModel } from "../models/Users.js";
+
 // import { verifyToken } from "./users.js"
 
 const router = express.Router();
-router.get("/", async (req, res) => {
-    try {
-        const response = await StatModel.find({});
-        res.json(response);
-    } catch (err) {
-        res.json(err);
-    }
-})
+
+// router.get("/", async (req, res) => {
+//     try {
+//       const result = await StatModel.find({});
+//       res.json(result);
+//     } catch (err) {
+//       res.json(err);
+//     }
+// });
 
 router.post("/", async (req, res) => {
     const { currentDate, userOwner } = req.body;
@@ -22,7 +24,6 @@ router.post("/", async (req, res) => {
             new: true,
             upsert: true
         };
-
         // Use findOneAndUpdate to perform the upsert
         const response = await StatModel.findOneAndUpdate(filter, req.body, options);
 
@@ -32,38 +33,53 @@ router.post("/", async (req, res) => {
     }
   });   
 
-router.put("/", async (req, res) => {
-  try {
-    const stat = await StatModel.findById(req.body.statId);
-    const user = await UserModel.findById(req.body.userID);
-    user.savedStats.push(recipe);
-    await user.save();
-    res.json({ savedStats: user.savedStats });
-    const response = await stat.save();
-  } catch (err) {
-    res.json(err);
-  }
-});
-
-router.get("/savedStats/ids", async (req, res) => {
+router.get("/", async (req, res) => {
     try {
-        const user = await UserModel.findById(req.body.userID) 
-        res.json({ savedRecipes: user?.savedStatas})
-    } catch (err) {
-        res.json(err)
-    }
-});
+        const userOwner = req.query.userOwner;
+        const currentDate = req.query.currentDate;
 
-router.get("/savedStats", async (req, res) => {
-  try {
-    const user = await UserModel.findById(req.body.userID);
-    const savedStats = await StatModel.find({
-      _id: { $in: user.savedStats },
-    });
-    res.json({ savedStats });
-  } catch (err) {
-    res.json(err);
-  }
+        console.log("Received userOwner:", userOwner);
+        console.log("Received currentDate:", currentDate);
+        
+        const userStats = await StatModel.find({ userOwner, currentDate });
+        res.json(userStats); 
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error.");
+    } 
 });
 
 export { router as statRouter };
+
+// router.get("/savedStats/ids", async (req, res) => {
+//     try {
+//         const user = await UserModel.findById(req.body.userID) 
+//         res.json({ savedRecipes: user?.savedStatas})
+//     } catch (err) {
+//         res.json(err)
+//     }
+// });
+
+// router.get("/savedStats", async (req, res) => {
+//   try {
+//     const user = await UserModel.findById(req.body.userID);
+//     const savedStats = await StatModel.find({
+//       _id: { $in: user.savedStats },
+//     });
+//     res.json({ savedStats });
+//   } catch (err) {
+//     res.json(err);
+//   }
+// });
+
+// router.get("/stat", async (req, res) => {
+//   try {
+//     const userOwner = req.query.userOwner;
+
+//     const userStats = await StatModel.find({ userOwner: userOwner });
+//     res.json(userStats);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send("Internal Server Error.");
+//   }
+// });

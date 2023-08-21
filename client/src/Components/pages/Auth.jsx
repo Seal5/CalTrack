@@ -27,11 +27,12 @@ const Login = () => {
                 username,
                 password,
             });
-            if (username == "" || password == "") {
+            if (username == "") {
               alert("Fill in all the fields before submitting");
               setUsername("");
               setPassword("");
-            } else if (response.data.message) {
+            } else 
+            if (response.data.message) {
                 setUsername("");
                 setPassword("");
                 alert(response.data.message);

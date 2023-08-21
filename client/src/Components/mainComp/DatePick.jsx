@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import TextField from "@mui/material/TextField";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { format } from "date-fns";
 
-function DatePick() {
+function DatePick({ onDateChange }) {
   const [date, setDate] = useState(null);
 
+  useEffect(() => {
+    onDateChange(date)
+  }, [date])
+  
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DatePicker
