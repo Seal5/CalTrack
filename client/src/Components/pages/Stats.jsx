@@ -33,6 +33,17 @@ export const Stats = () => {
         fetchValues();
     }, [currentDate, userOwner]);
 
+    const handleNext = () => {
+        const newDate = new Date(currentDate);
+        newDate.setDate(newDate.getDate() + 1)
+        setCurrentDate(newDate.toISOString().split("T")[0]);
+    }
+    const handlePrevious = () => {
+        const newDate = new Date(currentDate);
+        newDate.setDate(newDate.getDate() - 1);
+        setCurrentDate(newDate.toISOString().split("T")[0]);
+    }
+
     const handleDateChange = (date) => {
         if(date != null){
             setCurrentDate(date.toISOString().split("T")[0]); 
@@ -45,16 +56,20 @@ export const Stats = () => {
       <div>
         <h1> Enter the date of your caloric stats</h1>
         <DatePick onDateChange={handleDateChange} />
+
         {stats.length === 0 ? (
-            <p>No stats available.</p>
-            ) : (
-            <div>
-                <h2>{stats[0].total}</h2>
-                <h2>{stats[0].remaining}</h2>
-                <h2>{stats[0].currentDate}</h2>
-            </div>
+          <p>No stats available.</p>
+        ) : (
+          <div>
+            <h2>{stats[0].total}</h2>
+            <h2>{stats[0].remaining}</h2>
+            <h2>{stats[0].currentDate}</h2>
+          </div>
         )}
-        <h2></h2>
+        <div>
+          <button onClick={handlePrevious}>Previous</button>
+          <button onClick={handleNext}>Next</button>
+        </div>
       </div>
     );
 };

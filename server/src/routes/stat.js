@@ -2,7 +2,6 @@ import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import { StatModel } from "../models/Stat.js";
-
 // import { verifyToken } from "./users.js"
 
 const router = express.Router();
@@ -50,36 +49,3 @@ router.get("/", async (req, res) => {
 });
 
 export { router as statRouter };
-
-// router.get("/savedStats/ids", async (req, res) => {
-//     try {
-//         const user = await UserModel.findById(req.body.userID) 
-//         res.json({ savedRecipes: user?.savedStatas})
-//     } catch (err) {
-//         res.json(err)
-//     }
-// });
-
-// router.get("/savedStats", async (req, res) => {
-//   try {
-//     const user = await UserModel.findById(req.body.userID);
-//     const savedStats = await StatModel.find({
-//       _id: { $in: user.savedStats },
-//     });
-//     res.json({ savedStats });
-//   } catch (err) {
-//     res.json(err);
-//   }
-// });
-
-// router.get("/stat", async (req, res) => {
-//   try {
-//     const userOwner = req.query.userOwner;
-
-//     const userStats = await StatModel.find({ userOwner: userOwner });
-//     res.json(userStats);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send("Internal Server Error.");
-//   }
-// });
