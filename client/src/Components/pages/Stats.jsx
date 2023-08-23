@@ -3,7 +3,10 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import DatePick from "../mainComp/DatePick";
 import { useGetUserID } from "../hooks/useGetUserID";
+import LineChart from "../mainComp/LineChart"
+import { Line } from "react-chartjs-2";
 import axios from "axios";
+// import { Line } from "react-chartjs-2"
 
 export const Stats = () => {
     const [stats, setStats] = useState([]);
@@ -18,8 +21,8 @@ export const Stats = () => {
                 const response = await axios.get("http://localhost:3001/stat"
                 , {
                     params: {
-                    userOwner: userOwner,
-                    currentDate: currentDate,
+                        userOwner: userOwner,
+                        currentDate: currentDate,
                     },
                 }
                 );
@@ -52,11 +55,55 @@ export const Stats = () => {
         }
     };
 
+    const chartData = async () => {
+        const chartDate = new Date();
+        const pastMonthDate = [];
+        const pastDateData = [];
+
+        for (let i = 30; i >= 0; i--){
+            const tempDate = chartDate.toISOString().split("T")[0]
+            pastMonthDate.push(tempDate)
+
+            const chartDataFinder = async() => {
+                try {
+                    const response = await axios.get(
+                        "http://localhost:3001/stat",
+                        {
+                        params: {
+                            userOwner: userOwner,
+                            currentDate: tempDate,
+                        },
+                        }
+                    );
+                    if (response.data[0] === undefined){
+                        pastDateData.push(0);
+                    } else {
+                        pastDateData.push(response.data[0].remaining);
+                    }
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+
+            chartDataFinder();
+            chartDate.setDate(chartDate.getDate() - 1);
+        }
+        return ({ pastMonthDate, pastDateData })
+    }
+
+    // function LineChart() {
+    //     labels: ["January", "Febuary"]
+    // };
+
+    const chartDataObj = chartData();
     return (
       <div>
         <h1> Enter the date of your caloric stats</h1>
         <DatePick onDateChange={handleDateChange} />
-
+        <LineChart
+          pastMonthDate={chartDataObj.pastMonthDate}
+          pastDateData={chartDataObj.pastDateData}
+        />
         {stats.length === 0 ? (
           <p>No stats available.</p>
         ) : (
