@@ -11,6 +11,7 @@ import axios from "axios";
 export const Stats = () => {
     const [stats, setStats] = useState([]);
     const [currentDate, setCurrentDate] = useState("");
+    const [chartDataObj, setChartDataObj] = useState("");
     const userOwner = useGetUserID();
 
     useEffect(() => {
@@ -34,6 +35,7 @@ export const Stats = () => {
         }
         };
         fetchValues();
+        chartData();
     }, [currentDate, userOwner]);
 
     const handleNext = () => {
@@ -55,47 +57,99 @@ export const Stats = () => {
         }
     };
 
+    // const chartData = async () => {
+    //     const chartDate = new Date();
+    //     const pastMonthDate = [];
+    //     const pastDateData = [];
+    //         // const [pastMonthDate, setPastMonthDate] = useState([]);
+    //         // const [pastDateData, setPastDateData] = useState([]);
+
+    //     for (let i = 30; i >= 0; i--){
+    //         const tempDate = chartDate.toISOString().split("T")[0]
+    //         pastMonthDate.push(tempDate)
+    //         let value = 0;
+
+    //         const chartDataFinder = async() => {
+    //             try {
+    //                 const response = await axios.get(
+    //                     "http://localhost:3001/stat",
+    //                     {
+    //                     params: {
+    //                         userOwner: userOwner,
+    //                         currentDate: tempDate,
+    //                     },
+    //                     }
+    //                 );
+    //                 try {
+    //                         console.log(
+    //                             response.data[0].remaining
+    //                         );
+    //                         value = response.data[0].remaining;
+    //                 } catch (err) {
+    //                     console.log(err);
+    //                     value = 10;
+    //                 }
+    //             } catch (err) {
+    //                 console.log(err);
+    //             }
+    //         }
+    //         chartDataFinder();
+    //         pastDateData.push(value)
+    //         chartDate.setDate(chartDate.getDate() - 1);
+    //     }
+    //     console.log(pastMonthDate + "  OVER HERE  " + pastDateData)
+    //     return ({ pastMonthDate, pastDateData })
+    // }
+
+    
+
     const chartData = async () => {
-        const chartDate = new Date();
-        const pastMonthDate = [];
-        const pastDateData = [];
+      const chartDate = new Date();
+      const pastMonthDate = [];
+      const pastDateData = [];
 
-        for (let i = 30; i >= 0; i--){
-            const tempDate = chartDate.toISOString().split("T")[0]
-            pastMonthDate.push(tempDate)
-
-            const chartDataFinder = async() => {
-                try {
-                    const response = await axios.get(
-                        "http://localhost:3001/stat",
-                        {
-                        params: {
-                            userOwner: userOwner,
-                            currentDate: tempDate,
-                        },
-                        }
-                    );
-                    if (response.data[0] === undefined){
-                        pastDateData.push(0);
-                    } else {
-                        pastDateData.push(response.data[0].remaining);
-                    }
-                } catch (err) {
-                    console.log(err);
-                }
-            }
-
-            chartDataFinder();
-            chartDate.setDate(chartDate.getDate() - 1);
+      const chartDataFinder = async (tempDate) => {
+        try {
+          const response = await axios.get("http://localhost:3001/stat", {
+            params: {
+              userOwner: userOwner,
+              currentDate: tempDate,
+            },
+          });
+          if (response.data[0]) {
+            console.log(response.data[0].remaining);
+            return response.data[0].remaining;
+          } else {
+            console.log("Data not available or undefined");
+            return 0; 
+          }
+        } catch (err) {
+          console.log(err);
         }
-        return ({ pastMonthDate, pastDateData })
+      };
+
+      for (let i = 30; i >= 0; i--) {
+        const tempDate = chartDate.toISOString().split("T")[0];
+        pastMonthDate.push(tempDate);
+
+        const value = await chartDataFinder(tempDate);
+        pastDateData.push(value);
+
+        chartDate.setDate(chartDate.getDate() - 1);
+      }
+
+      console.log(pastMonthDate + "  OVER HERE  " + pastDateData);
+      return { pastMonthDate, pastDateData };
+    };
+
+    const sendData = async () => {
+        const fetchedDataObj = await chartData();
+
+        setChartDataObj(fetchedDataObj);
     }
-
-    // function LineChart() {
-    //     labels: ["January", "Febuary"]
-    // };
-
-    const chartDataObj = chartData();
+    console.log(chartDataObj)
+    sendData();
+    // const chartDataObj = await chartData();     
     return (
       <div>
         <h1> Enter the date of your caloric stats</h1>

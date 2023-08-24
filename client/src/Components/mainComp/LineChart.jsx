@@ -16,7 +16,7 @@ ChartJS.register(
 )
 // props
 function LineChart(props) {
-    console.log(props.pastMonthDate)
+    console.log("HELLO" + props.pastMonthDate)
     const data = {
         labels: props.pastMonthDate,
     //   labels: ["hi", "h3", "h4"],
