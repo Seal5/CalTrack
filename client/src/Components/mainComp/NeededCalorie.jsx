@@ -25,7 +25,7 @@ function NeededCalorie(props) {
 // Returning the ingredient list in an appropriate positio according to dish entree name 
   return (
     <div>
-      <form>
+      <form className="data-input">
         <input
           placeholder="Daily calorie goal..."
           type="number"

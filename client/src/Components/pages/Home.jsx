@@ -171,12 +171,15 @@ export const Home = () => {
   // extracting the entire webpage
   return (
     <div className="output">
-      <Header />
-      <h2>Calories For {currentDate}</h2>
+      {/* <Header /> */}
       {remaining < 0 ? (
-        <p className="remaining">Calorie Lost Needed: {-remaining}</p>
+        <p className="remaining">
+          {-remaining} cal Extra for {currentDate}
+        </p>
       ) : (
-        <p className="remaining">Calorie Remaing: {remaining}</p>
+        <p className="remaining">
+          {remaining} cal Remaining for {currentDate}
+        </p>
       )}
       {output.map((value, index) => (
         <p className="mealCalorie" key={index}>
@@ -190,7 +193,12 @@ export const Home = () => {
       <CreateIngredient
         onAdd={(newIngredient) => handleAddIngredient(newIngredient, null)}
       />
-      <button onClick={handleSubmit}> Update </button>
+      {userID ? (
+        <button className="submit" onClick={handleSubmit}>
+          {" "}
+          Update{" "}
+        </button>
+      ) : null}
       <table>
         <tbody>
           {meal.map((row, rowIndex) => (

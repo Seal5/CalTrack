@@ -55,7 +55,7 @@ function CreateMeal(props) {
   // Returning the meal in an appropriate positio according to dish entree name
   return (
     <div>
-      <form>
+      <form className="data-input">
         <input
           placeholder="Dish name..."
           name="title"

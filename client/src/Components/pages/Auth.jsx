@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { useNavigate } from 'react-router-dom'
-
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
 export const Auth = () => {
     return (
@@ -109,8 +109,8 @@ const Form  = ({ username, setUsername, password, setPassword, title, onSubmit})
       <div className="auth-container">
         <form onSubmit={onSubmit}>
           <h2> {title} </h2>
-          <div className= "namebox">
-            <label htmlFor="username"> Username: </label>
+          <div className="namebox">
+              <label htmlFor="password"> Username: </label>
             <input
               type="text"
               id="username"
@@ -118,7 +118,7 @@ const Form  = ({ username, setUsername, password, setPassword, title, onSubmit})
               onChange={(event) => setUsername(event.target.value)}
             />
           </div>
-          <div className= "namebox">
+          <div className="namebox">
             <label htmlFor="password"> Password: </label>
             <input
               type="password"
@@ -127,7 +127,7 @@ const Form  = ({ username, setUsername, password, setPassword, title, onSubmit})
               onChange={(event) => setPassword(event.target.value)}
             />
           </div>
-          <button type="submit"> {title} </button>
+          <button type="submit"> Submit <ArrowUpwardIcon/>  </button>
         </form>
       </div>
     );
