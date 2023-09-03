@@ -17,7 +17,6 @@ export const Stats = () => {
     useEffect(() => {
         const fetchValues = async () => {
         try {
-            console.log(userOwner + "    " + currentDate);
             if (userOwner && currentDate) {
                 const response = await axios.get("http://localhost:3001/stat"
                 , {
@@ -105,6 +104,7 @@ export const Stats = () => {
 
     const chartData = async () => {
       const chartDate = new Date();
+      chartDate.setDate(chartDate.getDate() - 30);
       const pastMonthDate = [];
       const pastDateData = [];
 
@@ -121,7 +121,7 @@ export const Stats = () => {
             return response.data[0].remaining;
           } else {
             console.log("Data not available or undefined");
-            return 0; 
+            return 0;
           }
         } catch (err) {
           console.log(err);
@@ -135,10 +135,9 @@ export const Stats = () => {
         const value = await chartDataFinder(tempDate);
         pastDateData.push(value);
 
-        chartDate.setDate(chartDate.getDate() - 1);
+        chartDate.setDate(chartDate.getDate() + 1);
       }
 
-      console.log(pastMonthDate + "  OVER HERE  " + pastDateData);
       return { pastMonthDate, pastDateData };
     };
 
@@ -152,25 +151,50 @@ export const Stats = () => {
     // const chartDataObj = await chartData();     
     return (
       <div>
-        <h1> Enter the date of your caloric stats</h1>
-        <DatePick onDateChange={handleDateChange} />
+        <div className="statOutput">
+          <h1> Choose a Date </h1>
+          <div className="datePickerContainer">
+            <DatePick onDateChange={handleDateChange} />
+          </div>
+          {currentDate ? (
+            <div className="stats">
+              <h2> Stats For: {currentDate} </h2>
+              {stats.length === 0 ? (
+                <p>No stats available</p>
+              ) : (
+                <div>
+                  <p>Caloric Consumption Goal: {stats[0].total}</p>
+                  {stats[0].remaining === 0 ? (
+                    <p>You reached your goal!</p>
+                  ) : stats[0].remaining > 0 ? (
+                    <p>
+                      You needed {stats[0].remaining} more calories!
+                    </p>
+                  ) : (
+                    <p>
+                      You needed {Math.abs(stats[0].remaining)} less
+                      calories!
+                    </p>
+                  )}
+                </div>
+              )}
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
+        <div className="buttonContainer">
+          <button className="prevNext" onClick={handlePrevious}>
+            Prev
+          </button>
+          <button className="prevNext" onClick={handleNext}>
+            Next
+          </button>
+        </div>
         <LineChart
           pastMonthDate={chartDataObj.pastMonthDate}
           pastDateData={chartDataObj.pastDateData}
         />
-        {stats.length === 0 ? (
-          <p>No stats available.</p>
-        ) : (
-          <div>
-            <h2>{stats[0].total}</h2>
-            <h2>{stats[0].remaining}</h2>
-            <h2>{stats[0].currentDate}</h2>
-          </div>
-        )}
-        <div>
-          <button onClick={handlePrevious}>Previous</button>
-          <button onClick={handleNext}>Next</button>
-        </div>
       </div>
     );
 };

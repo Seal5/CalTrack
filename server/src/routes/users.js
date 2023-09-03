@@ -30,7 +30,7 @@ router.post("/login", async (req, res) => {
     var { username, password } = req.body;
     const user = await UserModel.findOne({ username }); 
 
-    if (!user) {
+    if(!user) {
         return res.json({ message: "Cannot find your account"})
     } else {
             const isPasswordValid = await bcrypt.compare(

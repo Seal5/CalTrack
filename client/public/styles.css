@@ -5,14 +5,17 @@
   margin: 0;
   box-sizing: border-box;
 }
+
 html {
   font-family: 'Comfortaa', sans-serif;
 }
+
 body {
   background: #eee;
   padding: 0 16px;
   width: 30000 px;
 }
+
 header {
   top: 0;
   left: 0;
@@ -23,11 +26,13 @@ header {
   padding: 16px 32px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
 }
+
 header h1 {
   color: #fff;
   font-family: 'Comfortaa';
   font-weight: 200;
 }
+
 footer {
   position: fixed;
   text-align: center;
@@ -39,6 +44,7 @@ footer {
 footer {
   color: #ccc;
 }
+
 .output h2{
   font-size: 1.1em;
   color: #ffffff;
@@ -122,6 +128,115 @@ footer {
   font-size: 1.2em;
   font-family: inherit;
   resize: none;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.statOutput h1 {
+  width: 20%;
+  height: 50%;
+  text-align: center;
+  display: block;
+  position: flex;
+  background: #80CE9F;
+  color: #fff;
+  border: none;
+  border-radius: 1.0rem; 
+  font-size: 2.0rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  outline: none;
+  margin: 20px auto;
+  padding: 10px;
+  font-family: inherit;
+}
+
+.statOutput h2{
+  width: 80%;
+  height: 50%;
+  text-align: center;
+  display: block;
+  position: flex;
+  background: #cbedcd;
+  color: #808080;
+  border: none;
+  border-radius: 1.0rem; 
+  font-size: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  outline: none;
+  margin: 20px auto;
+  padding: 10px;
+  font-family: inherit;
+}
+
+.statOutput .stats{
+  width: 40%;
+  height: 50%;
+  text-align: center;
+  display: block;
+  position: flex;
+  background: #80CE9F;
+  color: #fff;
+  border: none;
+  border-radius: 1.0rem; 
+  font-size: 1.0rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  outline: none;
+  margin: 20px auto;
+  padding: 5px;
+  font-family: inherit;
+}
+
+.statOutput p{
+  border: none;
+  border-radius: 1.0rem; 
+  font-size: 1.5rem;
+  outline: none;
+  margin: 20px auto;
+  padding: 10px;
+  font-family: inherit;
+}
+
+.datePickerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px; 
+}
+
+/* .output  {
+
+} */
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.prevNext {
+  justify-content: center;
+  align-items: center;
+  background: #80CE9F;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 0.5rem 1.5rem;
+  font-size: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  outline: none;
+  font-family: inherit;
+  margin: 0 10px;
+}
+
+.prevNext:hover {
+  background-color: #2e9356;
 }
 
 .auth-container button {
@@ -258,6 +373,7 @@ form.data-input button:hover {
   font-size: 2.5rem;
   margin-right: auto;
 }
+
 
 .navbar button {
   font-family: 'Comfortaa', sans-serif;

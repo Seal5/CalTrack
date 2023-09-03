@@ -27,7 +27,7 @@ const Login = () => {
                 username,
                 password,
             });
-            if (username == "") {
+            if (username == "" || password == "") {
               alert("Fill in all the fields before submitting");
               setUsername("");
               setPassword("");
@@ -51,6 +51,7 @@ const Login = () => {
         <Form 
             username={username}
             setUsername={setUsername}
+            password={password}
             setPassword={setPassword}
             title="Login"
             onSubmit={handleSubmit}

@@ -36,9 +36,6 @@ router.get("/", async (req, res) => {
     try {
         const userOwner = req.query.userOwner;
         const currentDate = req.query.currentDate;
-
-        console.log("Received userOwner:", userOwner);
-        console.log("Received currentDate:", currentDate);
         
         const userStats = await StatModel.find({ userOwner, currentDate });
         res.json(userStats); 
@@ -46,6 +43,31 @@ router.get("/", async (req, res) => {
         console.error(error);
         res.status(500).send("Internal Server Error.");
     } 
+});
+
+router.get("/goal", async (req, res) => {
+  try {
+    const userID = req.query.userID;
+    if (userID) {
+      const mostRecentGoal = await StatModel.find({ userOwner: userID })
+        .sort({ currentDate: -1 })
+        .limit(1);
+
+      if (mostRecentGoal.length > 0) {
+        console.log(mostRecentGoal[0].total);
+        res.json(mostRecentGoal[0].total);
+      } else {
+        // If no goals are found for the user, send the default value
+        res.json(2250);
+      }
+    } else {
+      // If userID is not provided, send the default value
+      res.json(2250);
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error.");
+  }
 });
 
 export { router as statRouter };

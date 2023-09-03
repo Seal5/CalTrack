@@ -21,6 +21,31 @@ export const Home = () => {
   const [currentDate, setCurrentDate] = useState(new Date().toISOString().slice(0, 10));
   const userID = useGetUserID();
 
+  useEffect(() => {
+    const fetchGoal = async () => {
+      try {
+        if (userID) {
+          const response = await axios.get(
+            "http://localhost:3001/stat/goal",
+            {
+              params: {
+                userID: userID,
+              },
+            }
+          );
+          setTotal(response.data);
+        } else {
+          setTotal(2250)
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    // Call the fetchGoal function when the component mounts
+    fetchGoal();
+  }, []); 
+
   // Update the time every minute
   useEffect(() => {
     const interval = setInterval(() => {
