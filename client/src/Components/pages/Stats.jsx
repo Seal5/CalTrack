@@ -5,7 +5,9 @@ import DatePick from "../mainComp/DatePick";
 import { useGetUserID } from "../hooks/useGetUserID";
 import LineChart from "../mainComp/LineChart"
 import { Line } from "react-chartjs-2";
+import Footer from "../mainComp/Footer";
 import axios from "axios";
+
 // import { Line } from "react-chartjs-2"
 
 export const Stats = () => {
@@ -195,6 +197,7 @@ export const Stats = () => {
           pastMonthDate={chartDataObj.pastMonthDate}
           pastDateData={chartDataObj.pastDateData}
         />
+        <Footer/>
       </div>
     );
 };

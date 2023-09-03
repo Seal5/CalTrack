@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { useNavigate } from 'react-router-dom'
+import Footer from "../mainComp/Footer";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
 export const Auth = () => {
@@ -130,6 +131,7 @@ const Form  = ({ username, setUsername, password, setPassword, title, onSubmit})
           </div>
           <button type="submit"> Submit <ArrowUpwardIcon/>  </button>
         </form>
+        <Footer/>
       </div>
     );
 };
