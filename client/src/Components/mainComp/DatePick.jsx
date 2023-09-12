@@ -6,7 +6,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 
 function DatePick({ onDateChange }) {
   const [date, setDate] = useState(null);
-
+  // creating the MUI date picker 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DatePicker

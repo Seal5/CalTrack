@@ -15,6 +15,7 @@ const router = express.Router();
 //     }
 // });
 
+// post the data for the user when the input is saved 
 router.post("/", async (req, res) => {
     const { currentDate, userOwner } = req.body;
     try {
@@ -32,6 +33,7 @@ router.post("/", async (req, res) => {
     }
   });   
 
+// return stats for a user on a specific date
 router.get("/", async (req, res) => {
     try {
         const userOwner = req.query.userOwner;
@@ -45,6 +47,7 @@ router.get("/", async (req, res) => {
     } 
 });
 
+// return the most recent caloric goal 
 router.get("/goal", async (req, res) => {
   try {
     const userID = req.query.userID;

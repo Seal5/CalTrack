@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+// stat model  
 const StatSchema = new mongoose.Schema({
   total: { type: Number, required: true },
   remaining: { type: Number, required: true },

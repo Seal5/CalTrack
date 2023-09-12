@@ -10,12 +10,14 @@ import axios from "axios";
 
 // import { Line } from "react-chartjs-2"
 
+// stats page 
 export const Stats = () => {
     const [stats, setStats] = useState([]);
     const [currentDate, setCurrentDate] = useState("");
     const [chartDataObj, setChartDataObj] = useState("");
     const userOwner = useGetUserID();
 
+    // call database for owner and date
     useEffect(() => {
         const fetchValues = async () => {
         try {
@@ -36,9 +38,11 @@ export const Stats = () => {
         }
         };
         fetchValues();
+        // call chart
         chartData();
     }, [currentDate, userOwner]);
 
+    // buttons for next and before 
     const handleNext = () => {
         const newDate = new Date(currentDate);
         newDate.setDate(newDate.getDate() + 1)
@@ -50,6 +54,7 @@ export const Stats = () => {
         setCurrentDate(newDate.toISOString().split("T")[0]);
     }
 
+    // replace when new date is added
     const handleDateChange = (date) => {
         if(date != null){
             setCurrentDate(date.toISOString().split("T")[0]); 
@@ -103,7 +108,7 @@ export const Stats = () => {
     // }
 
     
-
+    // get chart data
     const chartData = async () => {
       const chartDate = new Date();
       chartDate.setDate(chartDate.getDate() - 30);
@@ -112,6 +117,7 @@ export const Stats = () => {
 
       const chartDataFinder = async (tempDate) => {
         try {
+          // function to find data for the individual user on a certain date
           const response = await axios.get("http://localhost:3001/stat", {
             params: {
               userOwner: userOwner,
@@ -130,6 +136,7 @@ export const Stats = () => {
         }
       };
 
+      // get the date data for the past 30 days
       for (let i = 30; i >= 0; i--) {
         const tempDate = chartDate.toISOString().split("T")[0];
         pastMonthDate.push(tempDate);
@@ -143,6 +150,7 @@ export const Stats = () => {
       return { pastMonthDate, pastDateData };
     };
 
+    // send the data to the chart 
     const sendData = async () => {
         const fetchedDataObj = await chartData();
 
@@ -150,7 +158,8 @@ export const Stats = () => {
     }
     console.log(chartDataObj)
     sendData();
-    // const chartDataObj = await chartData();     
+    // const chartDataObj = await chartData();   
+    // output  
     return (
       <div>
         <div className="statOutput">

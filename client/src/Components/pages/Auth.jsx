@@ -14,6 +14,7 @@ export const Auth = () => {
     );
 };
 
+// login authentication 
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -21,28 +22,31 @@ const Login = () => {
     const [_, setCookies] = useCookies(["access_token"])
     const navigate = useNavigate()
     
+    // handling submit 
     const handleSubmit = async(event) => {
         event.preventDefault();
         try {
-            const response = await axios.post("http://localhost:3001/auth/login", {
-                username,
-                password,
-            });
-            if (username == "" || password == "") {
-              alert("Fill in all the fields before submitting");
-              setUsername("");
-              setPassword("");
-            } else 
-            if (response.data.message) {
-                setUsername("");
-                setPassword("");
-                alert(response.data.message);
+          const response = await axios.post(
+            "http://localhost:3001/auth/login",
+            {
+              username,
+              password,
             }
-            else {
-                setCookies("access_token", response.data.token); 
-                window.localStorage.setItem("userID", response.data.userID);
-                navigate("/");
-            }
+          );
+          // appropriate error checks
+          if (username == "" || password == "") {
+            alert("Fill in all the fields before submitting");
+            setUsername("");
+            setPassword("");
+          } else if (response.data.message) {
+            setUsername("");
+            setPassword("");
+            alert(response.data.message);
+          } else {
+            setCookies("access_token", response.data.token);
+            window.localStorage.setItem("userID", response.data.userID);
+            navigate("/");
+          }
         } catch (err) {
             console.error(err)
         }
@@ -61,6 +65,7 @@ const Login = () => {
     );
 };
 
+// registeration authentication 
 const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -75,6 +80,7 @@ const Register = () => {
           username,
           password,
         });
+        // appropriate error checks
         if (username == "" || password == ""){
           alert("Fill in all the fields before submitting");
           setUsername("");

@@ -8,17 +8,19 @@ export const Navbar = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["access_token"]);
   const navigate = useNavigate();
 
+  // remove local storage when logout button is pressed 
   const logout = () => {
     removeCookie("access_token");
     window.localStorage.removeItem("userID");
     navigate("/auth");
   };
+  // output navbar
   return (
     <div className="navbar">
       <Link to="/" className="big">
         CalTrack
       </Link>
-      `
+      
       {cookies.access_token ? (
         <button>
           <Link to="/Stats">Stats</Link>

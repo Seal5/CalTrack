@@ -9,6 +9,7 @@ import {
     Title
 } from 'chart.js'
 
+// initialize line chart
 ChartJS.register(
     LineElement,
     CategoryScale,
@@ -17,13 +18,14 @@ ChartJS.register(
     Title
 )
 
+// 
 const containerStyle = {
   width: "80%", 
   height: "", 
   margin: "0 auto",
 };
 
-// props
+// props for line chart
 function LineChart(props) {
   const data = {
     labels: props.pastMonthDate,
@@ -38,6 +40,7 @@ function LineChart(props) {
     ],
   };
 
+  // options within the chart to fit with the UI
   const options = {
     plugins: {
       title: {
@@ -47,11 +50,11 @@ function LineChart(props) {
           top: "10rem",
           bottom: "30rem",
         },
-        color: "#80CE9F", // Change the title color
+        color: "#80CE9F", 
         font: {
           family: "Comfortaa, sans-serif",
-          size: "30rem", // Change font size using rem units
-          weight: "bold", // Make the title bold
+          size: "30rem", 
+          weight: "bold", 
         },
       },
     },
@@ -91,6 +94,7 @@ function LineChart(props) {
     },
   };
 
+  // output the chart
   return (
     <div style={containerStyle}>
       <Line data={data} options={options} />
