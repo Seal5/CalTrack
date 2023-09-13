@@ -16,5 +16,3 @@ Some Examples!
 
 
 
-![image](https://user-images.githubusercontent.com/121348218/224609263-85d1c8f5-cf50-44c6-b822-c6338152e7bd.png)
-
