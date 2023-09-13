@@ -1,10 +1,14 @@
 # CalTrack
 • Built a CRUD calorie tracking app with a unique customization feature that enables users to customize every
 ingredient of each dish by using the caloric density and the weight
+
 • Utilized various React and Java Script features including useState, useEffect, useCookies,  useNavigate, Axios, and conditional rendering to produce a desired interface
+
 • Implemented user-specific progress tracking through Node.js and saved the progress in a MongoDB database
+
 • Created a secure user authentication API using Express.js endpoints for user registration/login with bcrypt
 for password hashing and JWT for authentication
+
 • Seamlessly incorporated React components, including a line chart component from ChartJS for visualizing caloric
 stats as well as a MUI Date Picker component for a user-friendly date selection
 
