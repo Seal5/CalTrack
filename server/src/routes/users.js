@@ -48,7 +48,7 @@ router.post("/login", async (req, res) => {
                 });
                 // return res.json({ token, userID: user._id })
             } else {
-                return res.status(401).json({ message: "Wrong Password or Username" })
+                return res.json({ message: "Wrong Password or Username" })
             }
     }
 });
