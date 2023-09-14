@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 import { userRouter } from './routes/users.js';
 import { statRouter } from "./routes/stat.js";
 
-const port = 'https://caltrack-backend.onrender.com' || 3001;
+const port = 3001;
 const app = express();
 
 app.use(express.json());
