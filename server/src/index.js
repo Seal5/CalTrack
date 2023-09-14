@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: ["https://caltrack-server.onrender.com"],
+    origin: ["https://caltrack-frontend.onrender.com"],
   })
 );
 app.use("/auth", userRouter);
