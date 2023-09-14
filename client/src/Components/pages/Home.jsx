@@ -26,7 +26,7 @@ export const Home = () => {
       try {
         if (userID) {
           const response = await axios.get(
-            "http://localhost:3001/stat/goal",
+            "https://caltrack-backend.onrender.com/stat/goal",
             {
               params: {
                 userID: userID,
@@ -173,13 +173,13 @@ export const Home = () => {
     event.preventDefault(); 
     try {
       await axios.post(
-        "http://localhost:3001/stat",
-        { 
+        "https://caltrack-backend.onrender.com/stat",
+        {
           total: total,
           remaining: remaining,
           currentDate: currentDate,
           // meal: meal,
-          userOwner: userID
+          userOwner: userID,
         },
         {
           headers: { authorization: cookies.access_token },

@@ -22,13 +22,14 @@ export const Stats = () => {
         const fetchValues = async () => {
         try {
             if (userOwner && currentDate) {
-                const response = await axios.get("http://localhost:3001/stat"
-                , {
+                const response = await axios.get(
+                  "https://caltrack-backend.onrender.com/stat",
+                  {
                     params: {
-                        userOwner: userOwner,
-                        currentDate: currentDate,
+                      userOwner: userOwner,
+                      currentDate: currentDate,
                     },
-                }
+                  }
                 );
             console.log("API response:", response.data);
             setStats(response.data);
@@ -118,12 +119,15 @@ export const Stats = () => {
       const chartDataFinder = async (tempDate) => {
         try {
           // function to find data for the individual user on a certain date
-          const response = await axios.get("http://localhost:3001/stat", {
-            params: {
-              userOwner: userOwner,
-              currentDate: tempDate,
-            },
-          });
+          const response = await axios.get(
+            "https://caltrack-backend.onrender.com/stat",
+            {
+              params: {
+                userOwner: userOwner,
+                currentDate: tempDate,
+              },
+            }
+          );
           if (response.data[0]) {
             console.log(response.data[0].remaining);
             return response.data[0].remaining;

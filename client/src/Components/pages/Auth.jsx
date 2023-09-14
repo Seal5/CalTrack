@@ -27,7 +27,7 @@ const Login = () => {
         event.preventDefault();
         try {
           const response = await axios.post(
-            "http://localhost:3001/auth/login",
+            "https://caltrack-backend.onrender.com/auth/login",
             {
               username,
               password,
@@ -76,10 +76,13 @@ const Register = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-        const response = await axios.post("http://localhost:3001/auth/register", {
-          username,
-          password,
-        });
+        const response = await axios.post(
+          "https://caltrack-backend.onrender.com/auth/register",
+          {
+            username,
+            password,
+          }
+        );
         // appropriate error checks
         if (username == "" || password == ""){
           alert("Fill in all the fields before submitting");
