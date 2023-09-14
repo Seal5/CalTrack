@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 import { userRouter } from './routes/users.js';
 import { statRouter } from "./routes/stat.js";
 
-const port = 3001;
+const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(express.json());
@@ -25,6 +25,6 @@ mongoose.connect(
     }
 );
 
-app.listen(port, () =>
+app.listen(PORT, () =>
   console.log("server started")
 ); 
