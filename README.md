@@ -28,27 +28,24 @@ Login/Registeration:
 
 <img width="1440" alt="Screenshot 2023-09-13 at 1 51 01 PM" src="https://github.com/Seal5/CalTrack/assets/121348218/b48a0919-21e7-49d3-bab2-57f9f53e5d83">
 
-# Instructions on Running This Locally
+## Instructions on Running This Locally
 
 1. Clone the project
 ```sh
 git clone https://github.com/Seal5/CalTrack.git
 ```
 
-3. Define environment variables
-Create a .env file in the root directory of the project and define the required environment variables:
-
-4. Go to the project directory
+2. Go to the project directory
 ```sh
 cd CalTrack
 ```
 
-4. Install dependencies
+3. Install dependencies
 ```sh
 npm install
 ```
 
-5. Start the server
+4. Start the server
 ```sh
 npm run dev
 ```
