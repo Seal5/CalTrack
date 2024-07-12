@@ -1,7 +1,6 @@
 # CalTrack
 
-• Built a CRUD calorie tracking app with a unique customization feature that enables users to customize every
-ingredient of each dish by using the caloric density and the weight
+### CalTrack is a CRUD calorie tracking app with a unique customization feature that enables uers to customize every ingredient of each dish through using caloric density and the weight 
 
 • Utilized various React and Java Script features including useState, useEffect, useCookies,  useNavigate, Axios, and conditional rendering to produce a desired interface
 
